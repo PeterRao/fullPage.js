@@ -312,7 +312,7 @@
         */
         FP.silentMoveTo = function(sectionAnchor, slideAnchor){
             FP.setScrollingSpeed (0, 'internal');
-            FP.moveTo(sectionAnchor, slideAnchor)
+            FP.moveTo(sectionAnchor, slideAnchor);
             FP.setScrollingSpeed (originals.scrollingSpeed, 'internal');
         };
 
@@ -735,9 +735,10 @@
                     var sectionIndex = currentSection.index(SECTION_SEL) + 1;
                     var activeSlide = currentSection.find(SLIDE_ACTIVE_SEL);
 
+                    var slideAnchorLink, slideIndex;
                     if(activeSlide.length){
-                        var slideAnchorLink = activeSlide.data('anchor');
-                        var slideIndex = activeSlide.index();
+                        slideAnchorLink = activeSlide.data('anchor');
+                        slideIndex = activeSlide.index();
                     }
 
                     if(canScroll){
@@ -1106,9 +1107,10 @@
             //quiting when destination scroll is the same as the current one
             if((v.activeSection.is(element) && !isResizing) || (options.scrollBar && $window.scrollTop() === v.dtop)){ return; }
 
+            var slideAnchorLink, slideIndex;
             if(v.activeSlide.length){
-                var slideAnchorLink = v.activeSlide.data('anchor');
-                var slideIndex = v.activeSlide.index();
+                slideAnchorLink = v.activeSlide.data('anchor');
+                slideIndex = v.activeSlide.index();
             }
 
             // If continuousVertical && we need to wrap around
@@ -1348,8 +1350,10 @@
                 case 32: //spacebar
                     if(shiftPressed){
                         FP.moveSectionUp();
-                        break;
+                    } else {
+                        FP.moveSectionDown();
                     }
+                    break;
                 case 40:
                 case 34:
                     FP.moveSectionDown();

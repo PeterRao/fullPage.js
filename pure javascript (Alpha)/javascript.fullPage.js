@@ -530,7 +530,7 @@
            if ( n.nodeType == 1 && n != skipMe)
               r.push( n );
         return r;
-    };
+    }
 
     //Gets siblings
     function getAllSiblings(n) {
@@ -723,9 +723,9 @@
     */
     function silentMoveTo(sectionAnchor, slideAnchor){
         setScrollingSpeed (0, 'internal');
-        moveTo(sectionAnchor, slideAnchor)
+        moveTo(sectionAnchor, slideAnchor);
         setScrollingSpeed (originals.scrollingSpeed, 'internal');
-    };
+    }
 
     /**
     * Moves the page to the given section and slide.
@@ -921,6 +921,7 @@
             if(!hasClass(currentSection, ACTIVE)){
 
                 isScrolling = true;
+                var slideAnchorLink, slideIndex;
                 var leavingSection = $(SECTION_ACTIVE_SEL);
                 var leavingSectionIndex = getNodeIndex(leavingSection) + 1;
                 var yMovement = getYmovement(currentSection);
@@ -929,8 +930,8 @@
                 var activeSlide = $(SLIDE_ACTIVE_SEL, currentSection);
 
                 if(activeSlide){
-                    var slideAnchorLink = activeSlide.getAttribute('data-anchor');
-                    var slideIndex = getNodeIndex(activeSlide);
+                    slideAnchorLink = activeSlide.getAttribute('data-anchor');
+                    slideIndex = getNodeIndex(activeSlide);
                 }
 
                 if(canScroll){
@@ -1240,9 +1241,10 @@
         //quiting when destination scroll is the same as the current one
         if(( getNodeIndex(v.activeSection) == v.sectionIndex && !isResizing) || (options.scrollBar && getScrollTop() === v.dtop)){ return; }
 
+        var slideAnchorLink, slideIndex;
         if(v.activeSlide){
-            var slideAnchorLink = v.activeSlide.getAttribute('data-anchor');
-            var slideIndex = getNodeIndex(v.activeSlide);
+            slideAnchorLink = v.activeSlide.getAttribute('data-anchor');
+            slideIndex = getNodeIndex(v.activeSlide);
         }
 
         var siblings = $$(SECTION_SEL);
@@ -1435,8 +1437,10 @@
             case 32: //spacebar
                 if(shiftPressed){
                     moveSectionUp();
-                    break;
+                } else {
+                    moveSectionDown();
                 }
+                break;
             case 40:
             case 34:
                 moveSectionDown();
@@ -1891,7 +1895,7 @@
     /**
     * Sets a class for the body of the page depending on the active section / slide
     */
-    function setBodyClass(text){
+    function setBodyClass(){
         var section = $(SECTION_ACTIVE_SEL);
         var slide = $(SLIDE_ACTIVE_SEL, section);
 
